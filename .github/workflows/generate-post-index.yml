@@ -1,0 +1,27 @@
+name: Generate Post Index
+
+on:
+  push:
+    paths:
+      - 'posts/**.md'
+
+jobs:
+  generate-index:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate posts/index.json
+        run: python3 .github/scripts/generate_index.py
+
+      - name: Commit & push index.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add posts/index.json
+          git diff --staged --quiet || git commit -m "chore: update posts index [skip ci]"
+          git push
