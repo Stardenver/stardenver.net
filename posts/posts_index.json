@@ -1,0 +1,23 @@
+[
+  {
+    "file": "2025-04-28-willkommen.md",
+    "title": "Willkommen auf stardenver.net",
+    "date": "2025-04-28",
+    "excerpt": "Die Seite ist live. Hier erkläre ich kurz, was hier zu erwarten ist und wer hinter diesem Projekt steckt.",
+    "tags": [
+      "meta",
+      "news"
+    ]
+  },
+  {
+    "file": "2025-04-20-guideos-warum.md",
+    "title": "GuideOS – Warum wir eine eigene Distro bauen",
+    "date": "2025-04-20",
+    "excerpt": "Eine eigene Linux-Distribution zu bauen klingt nach viel Arbeit. Ist es auch. Aber es gibt gute Gründe dafür.",
+    "tags": [
+      "linux",
+      "guideos",
+      "open-source"
+    ]
+  }
+]
