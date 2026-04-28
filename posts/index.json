@@ -1,0 +1,19 @@
+[
+  {
+    "file": "2025-04-28-willkommen.md",
+    "title": "Willkommen auf stardenver.net",
+    "date": "2025-04-28",
+    "excerpt": "Die Seite ist live. Hier erkläre ich kurz, was hier zu erwarten ist und wer hinter diesem Projekt steckt.",
+    "tags": [
+      "meta",
+      "news"
+    ]
+  },
+  {
+    "file": "testpost.md",
+    "title": "Testpost",
+    "date": "",
+    "excerpt": "TEST Test",
+    "tags": []
+  }
+]
