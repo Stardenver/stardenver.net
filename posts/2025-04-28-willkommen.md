@@ -12,7 +12,7 @@ Die Seite ist endlich online. Nach zu vielen Stunden im Terminal, zu viel Kaffee
 
 ## Was ist das hier?
 
-Eine persönliche Seite. Kein Produkt, kein Brand, kein Newsletter. Einfach ein Platz im Netz,
+Eine persönliche Seite. Kein Produkt, kein Brand, kein Newsletter. Einfach (m)ein Platz im Netz,
 an dem ich Dinge dokumentiere, die ich interessant finde — meistens rund um Linux, Open Source,
 Self-Hosting und gelegentlich Retro-Computing.
 
