@@ -80,6 +80,26 @@
   loadNews();
 
 
+
+  // ── Impressum modal ──
+  function openImpressum(e) {
+    e.preventDefault();
+    document.getElementById('impressum-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeImpressum(e) {
+    if (e.target === document.getElementById('impressum-modal')) closeImpressumBtn();
+  }
+  function closeImpressumBtn() {
+    document.getElementById('impressum-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeImpressumBtn();
+    }
+  });
+
 </script>
 <style>
   :root {
@@ -747,6 +767,101 @@
     margin: 20px 0;
   }
 
+
+  /* ── Impressum modal ── */
+  .impressum-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .impressum-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .impressum-box {
+    background: var(--bg2);
+    border: 1px solid var(--orange);
+    box-shadow: 0 0 40px rgba(255,140,0,0.3);
+    max-width: 560px;
+    width: 100%;
+    padding: 30px 28px;
+    position: relative;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  .impressum-box h2 {
+    font-family: 'VT323', monospace;
+    font-size: 28px;
+    color: var(--orange-glow);
+    text-shadow: 0 0 10px var(--orange-glow);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--dim);
+    padding-bottom: 10px;
+  }
+  .impressum-box .imp-section {
+    margin-bottom: 16px;
+  }
+  .impressum-box .imp-label {
+    font-size: 11px;
+    color: var(--green);
+    text-shadow: 0 0 5px var(--green);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .impressum-box .imp-val {
+    font-size: 13px;
+    color: #cc8820;
+    line-height: 1.7;
+  }
+  .impressum-box .imp-val a {
+    color: var(--green);
+    text-decoration: none;
+    text-shadow: 0 0 5px var(--green);
+  }
+  .impressum-box .imp-note {
+    font-size: 11px;
+    color: var(--orange-dim);
+    border-top: 1px solid var(--dim);
+    padding-top: 12px;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+  .impressum-close {
+    position: absolute;
+    top: 12px; right: 16px;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: var(--orange-dim);
+    cursor: none;
+    background: none;
+    border: none;
+    transition: color 0.15s;
+  }
+  .impressum-close:hover { color: var(--orange-glow); }
+
+  /* ── Impressum plain section ── */
+  .impressum-plain {
+    font-size: 13px;
+    color: #a06020;
+    line-height: 1.8;
+  }
+  .impressum-plain h3 {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: var(--orange-glow);
+    margin: 14px 0 4px;
+    letter-spacing: 1px;
+  }
+  .impressum-plain a { color: var(--green); text-shadow: 0 0 5px var(--green); }
+
 </style>
 </head>
 <body>
@@ -777,6 +892,8 @@
     <a href="#links">[links]</a>
     <span class="sep">|</span>
     <a href="#contact">[contact]</a>
+    <span class="sep">|</span>
+    <a href="#" onclick="openImpressum(event)">[impressum]</a>
   </nav>
 
   <!-- HERO -->
@@ -1078,6 +1195,48 @@
     </div>
   </section>
 
+  <!-- IMPRESSUM MODAL -->
+  <div class="impressum-overlay" id="impressum-modal" onclick="closeImpressum(event)">
+    <div class="impressum-box">
+      <button class="impressum-close" onclick="closeImpressumBtn()">[ ✕ ]</button>
+      <h2>// IMPRESSUM.TXT</h2>
+
+      <div class="imp-section">
+        <div class="imp-label">&gt; ANGABEN GEMÄẞ § 5 TMG</div>
+        <div class="imp-val">
+          Boris Schäfer<br>
+          Mittelweg 2<br>
+          35716 Dietzhölztal<br>
+          Deutschland
+        </div>
+      </div>
+
+      <div class="imp-section">
+        <div class="imp-label">&gt; KONTAKT</div>
+        <div class="imp-val">
+          E-Mail: <a href="mailto:mail@stardenver.net">mail@stardenver.net</a><br>
+          Fax: 02774 9175312
+        </div>
+      </div>
+
+      <div class="imp-section">
+        <div class="imp-label">&gt; VERANTWORTLICH FÜR DEN INHALT (§ 55 ABS. 2 RSTV)</div>
+        <div class="imp-val">
+          Boris Schäfer<br>
+          Mittelweg 2<br>
+          35716 Dietzhölztal
+        </div>
+      </div>
+
+      <div class="imp-note">
+        Diese Website dient ausschließlich privaten und informativen Zwecken.
+        Trotz sorgfältiger inhaltlicher Kontrolle übernehme ich keine Haftung
+        für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten
+        sind ausschließlich deren Betreiber verantwortlich.
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="ascii-divider">╔══════════════════════════════════════════════════════════════════╗</div>
@@ -1087,7 +1246,7 @@
     </div>
     <div class="ascii-divider">╚══════════════════════════════════════════════════════════════════╝</div>
     <div style="margin-top:8px; font-size:11px; color:var(--dim);">
-      © <span id="year"></span> Stardenver &nbsp;·&nbsp; made with <span style="color:var(--orange)">☕</span> and too many terminal tabs
+      © <span id="year"></span> Stardenver &nbsp;·&nbsp; <a href="#impressum" style="color:var(--orange-dim);text-decoration:none;">Impressum</a> &nbsp;·&nbsp; made with <span style="color:var(--orange)">☕</span> and too many terminal tabs
     </div>
   </footer>
 
@@ -1233,6 +1392,26 @@
   loadNews();
 
 
+
+  // ── Impressum modal ──
+  function openImpressum(e) {
+    e.preventDefault();
+    document.getElementById('impressum-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeImpressum(e) {
+    if (e.target === document.getElementById('impressum-modal')) closeImpressumBtn();
+  }
+  function closeImpressumBtn() {
+    document.getElementById('impressum-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeImpressumBtn();
+    }
+  });
+
 </script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer>
   // ── News / Blog ──
@@ -1308,6 +1487,26 @@
 
   loadNews();
 
+
+
+  // ── Impressum modal ──
+  function openImpressum(e) {
+    e.preventDefault();
+    document.getElementById('impressum-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeImpressum(e) {
+    if (e.target === document.getElementById('impressum-modal')) closeImpressumBtn();
+  }
+  function closeImpressumBtn() {
+    document.getElementById('impressum-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeImpressumBtn();
+    }
+  });
 
 </script>
 </body>
