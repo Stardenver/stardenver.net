@@ -5,78 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>stardenver@net:~$</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
-  // ── News / Blog ──
-  const MAX_NEWS = 9;
-
-  async function loadNews() {
-    const grid    = document.getElementById('news-grid');
-    const loading = document.getElementById('news-loading');
-    const more    = document.getElementById('news-more');
-    try {
-      const res   = await fetch('posts/index.json');
-      if (!res.ok) throw new Error('index.json not found');
-      const posts = await res.json();
-      loading.style.display = 'none';
-
-      const shown = posts.slice(0, MAX_NEWS);
-      shown.forEach(post => {
-        const card = document.createElement('div');
-        card.className = 'news-card';
-        card.dataset.date = post.date;
-        card.dataset.file = post.file;
-        card.innerHTML = `
-          <div class="news-title">${escHtml(post.title)}</div>
-          <div class="news-excerpt">${escHtml(post.excerpt)}</div>
-          <div class="news-tags">${(post.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join('')}</div>
-        `;
-        card.addEventListener('click', () => openPost(post));
-        grid.appendChild(card);
-      });
-
-      if (posts.length > MAX_NEWS) {
-        more.style.display = 'block';
-        more.textContent = `… und ${posts.length - MAX_NEWS} weitere Posts`;
-      }
-    } catch (e) {
-      loading.innerHTML = '<span style="color:var(--red)">&gt; posts/index.json nicht gefunden — GitHub Action noch nicht gelaufen?</span>';
-    }
-  }
-
-  async function openPost(post) {
-    const modal = document.getElementById('post-modal');
-    const body  = document.getElementById('modal-body');
-    const date  = document.getElementById('modal-date');
-    body.innerHTML = '<span style="color:var(--orange-dim)">&gt; Lade Post<span class="blink">_</span></span>';
-    date.textContent = '';
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    try {
-      const res = await fetch('posts/' + post.file);
-      if (!res.ok) throw new Error('Datei nicht gefunden');
-      let md = await res.text();
-      // Strip frontmatter before rendering
-      md = md.replace(/^---\s*\n.*?\n---\s*\n/s, '');
-      date.textContent = '> ' + post.date + '  //  ' + (post.tags || []).join(' · ');
-      body.innerHTML = marked.parse(md);
-    } catch (e) {
-      body.innerHTML = '<span style="color:var(--red)">&gt; Fehler beim Laden des Posts.</span>';
-    }
-  }
-
-  function closeModal(e) {
-    if (e.target === document.getElementById('post-modal')) closeModalBtn();
-  }
-  function closeModalBtn() {
-    document.getElementById('post-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
-
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  loadNews();
 
 
 
@@ -631,54 +559,6 @@
   }
   .status-bar .online { color: var(--green); text-shadow: 0 0 6px var(--green); }
 
-  /* ── News / Blog ── */
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-  }
-  .news-card {
-    border: 1px solid var(--orange-dim);
-    padding: 14px;
-    background: var(--bg);
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    position: relative;
-  }
-  .news-card:hover {
-    border-color: var(--orange-glow);
-    box-shadow: 0 0 14px rgba(255,140,0,0.25);
-  }
-  .news-card::before {
-    content: attr(data-date);
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 11px;
-    color: var(--orange-dim);
-    position: absolute;
-    top: 8px; right: 10px;
-  }
-  .news-title {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
-    color: var(--orange-glow);
-    text-shadow: 0 0 8px var(--orange-glow);
-    margin-bottom: 6px;
-    padding-right: 80px;
-  }
-  .news-excerpt { font-size: 12px; color: #a06020; line-height: 1.5; }
-  .news-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .news-more {
-    text-align: center;
-    margin-top: 14px;
-    font-size: 12px;
-    color: var(--orange-dim);
-  }
-  .news-loading {
-    color: var(--orange-dim);
-    font-size: 13px;
-    padding: 14px 0;
-  }
-
   /* ── Post modal ── */
   .modal-overlay {
     position: fixed;
@@ -885,8 +765,6 @@
     <span class="sep">|</span>
     <a href="#projects">[projects]</a>
     <span class="sep">|</span>
-    <a href="#news">[news]</a>
-    <span class="sep">|</span>
     <a href="#skills">[skills]</a>
     <span class="sep">|</span>
     <a href="#links">[links]</a>
@@ -980,26 +858,6 @@
       </div>
     </div>
   </section>
-
-  <!-- NEWS / BLOG -->
-  <section id="news" class="box box-corners">
-    <span></span>
-    <div class="box-title">// NEWS.FEED</div>
-    <div class="box-inner">
-      <div class="news-loading" id="news-loading">&gt; Lade Posts<span class="blink">_</span></div>
-      <div class="news-grid" id="news-grid"></div>
-      <div class="news-more" id="news-more" style="display:none;"></div>
-    </div>
-  </section>
-
-  <!-- POST MODAL -->
-  <div class="modal-overlay" id="post-modal" onclick="closeModal(event)">
-    <div class="modal-box">
-      <button class="modal-close" onclick="closeModalBtn()">[ ✕ SCHLIESSEN ]</button>
-      <div class="modal-date" id="modal-date"></div>
-      <div class="post-body" id="modal-body"></div>
-    </div>
-  </div>
 
   <!-- SKILLS -->
   <section id="skills" class="box box-corners">
@@ -1285,78 +1143,6 @@
     setInterval(draw, 55);
   })();
 
-  // ── News / Blog ──
-  const MAX_NEWS = 9;
-
-  async function loadNews() {
-    const grid    = document.getElementById('news-grid');
-    const loading = document.getElementById('news-loading');
-    const more    = document.getElementById('news-more');
-    try {
-      const res   = await fetch('posts/index.json');
-      if (!res.ok) throw new Error('index.json not found');
-      const posts = await res.json();
-      loading.style.display = 'none';
-
-      const shown = posts.slice(0, MAX_NEWS);
-      shown.forEach(post => {
-        const card = document.createElement('div');
-        card.className = 'news-card';
-        card.dataset.date = post.date;
-        card.dataset.file = post.file;
-        card.innerHTML = `
-          <div class="news-title">${escHtml(post.title)}</div>
-          <div class="news-excerpt">${escHtml(post.excerpt)}</div>
-          <div class="news-tags">${(post.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join('')}</div>
-        `;
-        card.addEventListener('click', () => openPost(post));
-        grid.appendChild(card);
-      });
-
-      if (posts.length > MAX_NEWS) {
-        more.style.display = 'block';
-        more.textContent = `… und ${posts.length - MAX_NEWS} weitere Posts`;
-      }
-    } catch (e) {
-      loading.innerHTML = '<span style="color:var(--red)">&gt; posts/index.json nicht gefunden — GitHub Action noch nicht gelaufen?</span>';
-    }
-  }
-
-  async function openPost(post) {
-    const modal = document.getElementById('post-modal');
-    const body  = document.getElementById('modal-body');
-    const date  = document.getElementById('modal-date');
-    body.innerHTML = '<span style="color:var(--orange-dim)">&gt; Lade Post<span class="blink">_</span></span>';
-    date.textContent = '';
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    try {
-      const res = await fetch('posts/' + post.file);
-      if (!res.ok) throw new Error('Datei nicht gefunden');
-      let md = await res.text();
-      // Strip frontmatter before rendering
-      md = md.replace(/^---\s*\n.*?\n---\s*\n/s, '');
-      date.textContent = '> ' + post.date + '  //  ' + (post.tags || []).join(' · ');
-      body.innerHTML = marked.parse(md);
-    } catch (e) {
-      body.innerHTML = '<span style="color:var(--red)">&gt; Fehler beim Laden des Posts.</span>';
-    }
-  }
-
-  function closeModal(e) {
-    if (e.target === document.getElementById('post-modal')) closeModalBtn();
-  }
-  function closeModalBtn() {
-    document.getElementById('post-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
-
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  loadNews();
 
 
 
@@ -1381,78 +1167,6 @@
 
 </script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer>
-  // ── News / Blog ──
-  const MAX_NEWS = 9;
-
-  async function loadNews() {
-    const grid    = document.getElementById('news-grid');
-    const loading = document.getElementById('news-loading');
-    const more    = document.getElementById('news-more');
-    try {
-      const res   = await fetch('posts/index.json');
-      if (!res.ok) throw new Error('index.json not found');
-      const posts = await res.json();
-      loading.style.display = 'none';
-
-      const shown = posts.slice(0, MAX_NEWS);
-      shown.forEach(post => {
-        const card = document.createElement('div');
-        card.className = 'news-card';
-        card.dataset.date = post.date;
-        card.dataset.file = post.file;
-        card.innerHTML = `
-          <div class="news-title">${escHtml(post.title)}</div>
-          <div class="news-excerpt">${escHtml(post.excerpt)}</div>
-          <div class="news-tags">${(post.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join('')}</div>
-        `;
-        card.addEventListener('click', () => openPost(post));
-        grid.appendChild(card);
-      });
-
-      if (posts.length > MAX_NEWS) {
-        more.style.display = 'block';
-        more.textContent = `… und ${posts.length - MAX_NEWS} weitere Posts`;
-      }
-    } catch (e) {
-      loading.innerHTML = '<span style="color:var(--red)">&gt; posts/index.json nicht gefunden — GitHub Action noch nicht gelaufen?</span>';
-    }
-  }
-
-  async function openPost(post) {
-    const modal = document.getElementById('post-modal');
-    const body  = document.getElementById('modal-body');
-    const date  = document.getElementById('modal-date');
-    body.innerHTML = '<span style="color:var(--orange-dim)">&gt; Lade Post<span class="blink">_</span></span>';
-    date.textContent = '';
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    try {
-      const res = await fetch('posts/' + post.file);
-      if (!res.ok) throw new Error('Datei nicht gefunden');
-      let md = await res.text();
-      // Strip frontmatter before rendering
-      md = md.replace(/^---\s*\n.*?\n---\s*\n/s, '');
-      date.textContent = '> ' + post.date + '  //  ' + (post.tags || []).join(' · ');
-      body.innerHTML = marked.parse(md);
-    } catch (e) {
-      body.innerHTML = '<span style="color:var(--red)">&gt; Fehler beim Laden des Posts.</span>';
-    }
-  }
-
-  function closeModal(e) {
-    if (e.target === document.getElementById('post-modal')) closeModalBtn();
-  }
-  function closeModalBtn() {
-    document.getElementById('post-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
-
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  loadNews();
 
 
 
