@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum — stardenver.net</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:     #ff8c00;
+    --orange-dim: #b85e00;
+    --orange-glow:#ffa500;
+    --green:      #39ff14;
+    --bg:         #050400;
+    --bg2:        #0a0800;
+    --dim:        #3a2500;
+    --border:     #ff8c00;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--orange);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* CRT scanlines */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.13) 2px,
+      rgba(0,0,0,0.13) 4px
+    );
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+
+  /* breadcrumb */
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--orange-dim);
+    margin-bottom: 28px;
+  }
+  .breadcrumb a {
+    color: var(--green);
+    text-decoration: none;
+    text-shadow: 0 0 6px var(--green);
+  }
+  .breadcrumb a:hover { color: #fff; }
+
+  /* box */
+  .box {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    box-shadow: 0 0 18px rgba(255,140,0,0.12);
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .box-title {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    background: var(--bg2);
+    color: var(--orange-glow);
+    padding: 0 10px;
+    position: absolute;
+    top: -14px;
+    left: 16px;
+    text-shadow: 0 0 10px var(--orange-glow);
+    letter-spacing: 2px;
+  }
+  .box-inner {
+    padding: 28px 24px 22px;
+  }
+
+  h1 {
+    font-family: 'VT323', monospace;
+    font-size: 42px;
+    color: var(--orange-glow);
+    text-shadow: 0 0 16px var(--orange-glow);
+    letter-spacing: 3px;
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: var(--green);
+    text-shadow: 0 0 6px var(--green);
+    letter-spacing: 1px;
+    margin: 20px 0 6px;
+  }
+
+  p, address {
+    font-style: normal;
+    color: #cc8820;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  a {
+    color: var(--green);
+    text-shadow: 0 0 5px var(--green);
+    text-decoration: none;
+  }
+  a:hover { color: #fff; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--dim);
+    margin: 18px 0;
+  }
+
+  .note {
+    font-size: 12px;
+    color: var(--orange-dim);
+    line-height: 1.7;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--orange-dim);
+    margin-top: 20px;
+    border-top: 1px solid var(--dim);
+    padding-top: 16px;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--orange-dim); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="breadcrumb">
+    <a href="index.html">&lt; zurück zu stardenver.net</a>
+  </div>
+
+  <h1>IMPRESSUM</h1>
+
+  <div class="box">
+    <div class="box-title">// § 5 TMG — ANGABEN</div>
+    <div class="box-inner">
+      <address>
+        Boris Schäfer<br>
+        Mittelweg 2<br>
+        35716 Dietzhölztal<br>
+        Deutschland
+      </address>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">// KONTAKT</div>
+    <div class="box-inner">
+      <p>E-Mail: <a href="mailto:mail@stardenver.net">mail@stardenver.net</a></p>
+      <p>Fax: 02774 9175312</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">// § 55 ABS. 2 RSTV — VERANTWORTLICH FÜR DEN INHALT</div>
+    <div class="box-inner">
+      <address>
+        Boris Schäfer<br>
+        Mittelweg 2<br>
+        35716 Dietzhölztal
+      </address>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">// HAFTUNGSAUSSCHLUSS</div>
+    <div class="box-inner">
+      <h2>&gt; Haftung für Inhalte</h2>
+      <p class="note">
+        Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
+        Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch
+        keine Gewähr übernommen werden. Als Diensteanbieter bin ich gemäß § 7 Abs. 1 TMG
+        für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+      </p>
+
+      <h2>&gt; Haftung für Links</h2>
+      <p class="note">
+        Diese Website enthält Links zu externen Webseiten Dritter, auf deren Inhalte
+        kein Einfluss besteht. Für die Inhalte der verlinkten Seiten sind ausschließlich
+        deren Betreiber verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der
+        Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren
+        zum Zeitpunkt der Verlinkung nicht erkennbar.
+      </p>
+
+      <h2>&gt; Urheberrecht</h2>
+      <p class="note">
+        Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+        unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche
+        gekennzeichnet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
+        der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der
+        schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <span style="color:var(--green)">stardenver@net</span>:<span style="color:var(--orange)">~</span>$ cat impressum.txt
+    &nbsp;·&nbsp; <a href="index.html">zurück zur Startseite</a>
+  </footer>
+
+</div>
+</body>
+</html>
